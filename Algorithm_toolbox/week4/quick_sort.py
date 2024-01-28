@@ -1,17 +1,47 @@
-def partition(arr, l, r):
+def partition_last_pivot(arr, l, r):
+    pivot = arr[r]
+    i = l
+    j = r-1
+    
+    while i < j:
+        while i < r and arr[i] < pivot:
+            i+=1
+        while j > l and arr[j] > pivot:
+            j-=1
+        if i < j:
+            arr[i], arr[j] = arr[j], arr[i]
+        
+    if arr[i] > pivot:
+        arr[i], arr[r] = arr[r], arr[i]
+        
+    return i
+
+def partition_first_pivot(arr, l, r):
     pivot = arr[l]
-    j = l+1
-    for i in range(l+1, r):
-        if arr[i] <= pivot:
-            if i!=j:
-                arr[i], arr[j] = arr[j], arr[i]
-            j+=1
-    arr[l], arr[j-1] = arr[j-1], arr[l]
-    print(arr)
-    return j-1
+    i  = l+1
+    j = r
 
-def quick_sort(arr):
-    partition(arr, 0, len(arr))
+    while i < j:
+        while i < r and arr[i] < pivot:
+            i+=1
+        while j > l and arr[j] > pivot:
+            j-=1
+        if i < j:
+            arr[i], arr[j] = arr[j], arr[i]
+        
+    if arr[j] < pivot:
+        arr[j], arr[l] = arr[l], arr[j]
+    
+    return j
 
-arr = [6,4,2,3,9,8,9,4,7,6,1]
-quick_sort(arr)
+def quick_sort(arr, l, r):
+    if l < r:
+        p = partition_first_pivot(arr, l, r)
+        quick_sort(arr, l, p-1)
+        quick_sort(arr, p+1, r)    
+
+
+
+arr = [6, 4, 2, 3, 9, 8, 9, 4, 7, 6, 1]
+quick_sort(arr, 0, len(arr)-1)
+print("After partition : ", arr)
