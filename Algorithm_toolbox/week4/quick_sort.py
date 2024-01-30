@@ -4,7 +4,7 @@ def partition_last_pivot(arr, l, r):
     j = r-1
     
     while i < j:
-        while i < r and arr[i] < pivot:
+        while i < r and arr[i] <= pivot:
             i+=1
         while j > l and arr[j] > pivot:
             j-=1
@@ -22,7 +22,7 @@ def partition_first_pivot(arr, l, r):
     j = r
 
     while i < j:
-        while i < r and arr[i] < pivot:
+        while i < r and arr[i] <= pivot:
             i+=1
         while j > l and arr[j] > pivot:
             j-=1
